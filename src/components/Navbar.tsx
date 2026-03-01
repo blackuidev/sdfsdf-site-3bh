@@ -1,53 +1,83 @@
 import { Link, NavLink } from "react-router-dom";
+import { ShoppingCart, Menu } from "lucide-react";
 import { Button } from "@/components/lightswind/button";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/lightswind/sheet";
-import { Car, ShoppingCart, Menu } from "lucide-react";
 import { useCartStore } from "@/store/cart";
+import { useState } from "react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/lightswind/sheet";
+import { CartSidebar } from "./CartSidebar";
 
 export function Navbar() {
-  const cart = useCartStore((state) => state.cart);
+    const { items, openCart } = useCartStore();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const totalItems = items.length;
 
-  return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 max-w-screen-2xl items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 font-bold">
-          <Car className="h-6 w-6" />
-          <span className="text-lg">AutoLux</span>
-        </Link>
-        <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
-          <NavLink to="/" className={({ isActive }) => isActive ? "text-primary" : "text-muted-foreground transition-colors hover:text-foreground"}>Home</NavLink>
-          <NavLink to="/inventory" className={({ isActive }) => isActive ? "text-primary" : "text-muted-foreground transition-colors hover:text-foreground"}>Inventory</NavLink>
-        </nav>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" className="relative">
-            <ShoppingCart className="h-5 w-5" />
-            {cart.length > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-                {cart.length}
-              </span>
-            )}
-            <span className="sr-only">Cart</span>
-          </Button>
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle navigation menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left">
-              <nav className="grid gap-6 text-lg font-medium">
-                <Link to="/" className="flex items-center gap-2 text-lg font-semibold">
-                  <Car className="h-6 w-6" />
-                  <span>AutoLux</span>
-                </Link>
-                <Link to="/" className="hover:text-foreground">Home</Link>
-                <Link to="/inventory" className="text-muted-foreground hover:text-foreground">Inventory</Link>
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
-    </header>
-  );
+    const navLinks = [
+        { href: "/", label: "Home" },
+        { href: "/inventory", label: "Inventory" },
+    ];
+
+    return (
+        <>
+            <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <div className="container flex items-center h-14 max-w-screen-2xl mx-auto">
+                    <Link to="/" className="mr-6 flex items-center space-x-2">
+                        <span className="font-bold text-lg">CarLux</span>
+                    </Link>
+                    <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+                        {navLinks.map((link) => (
+                            <NavLink
+                                key={link.href}
+                                to={link.href}
+                                className={({ isActive }) =>
+                                    `transition-colors hover:text-foreground/80 ${isActive ? "text-foreground" : "text-foreground/60"}`
+                                }
+                            >
+                                {link.label}
+                            </NavLink>
+                        ))}
+                    </nav>
+                    <div className="flex items-center justify-end flex-1 space-x-4">
+                        <Button variant="ghost" size="icon" onClick={openCart} className="relative">
+                            <ShoppingCart className="w-5 h-5" />
+                            {totalItems > 0 && (
+                                <span className="absolute top-0 right-0 flex items-center justify-center w-4 h-4 text-xs font-bold text-white bg-red-500 rounded-full">
+                                    {totalItems}
+                                </span>
+                            )}
+                            <span className="sr-only">Open cart</span>
+                        </Button>
+
+                        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                            <SheetTrigger asChild>
+                                <Button variant="ghost" size="icon" className="md:hidden">
+                                    <Menu className="w-5 h-5" />
+                                    <span className="sr-only">Toggle Menu</span>
+                                </Button>
+                            </SheetTrigger>
+                            <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+                                <nav className="flex flex-col h-full p-6 space-y-4">
+                                    <Link to="/" className="mb-4">
+                                        <span className="font-bold text-xl">CarLux</span>
+                                    </Link>
+                                    {navLinks.map((link) => (
+                                        <NavLink
+                                            key={link.href}
+                                            to={link.href}
+                                            className={({ isActive }) =>
+                                                `text-lg font-medium transition-colors hover:text-foreground/80 ${isActive ? "text-foreground" : "text-foreground/60"}`
+                                            }
+                                            onClick={() => setIsMobileMenuOpen(false)}
+                                        >
+                                            {link.label}
+                                        </NavLink>
+                                    ))}
+                                </nav>
+                            </SheetContent>
+                        </Sheet>
+                    </div>
+                </div>
+            </header>
+            <CartSidebar />
+        </>
+    );
 }
