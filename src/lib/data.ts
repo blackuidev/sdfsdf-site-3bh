@@ -1,139 +1,172 @@
-import { ShieldCheck, Sparkles, Wrench, Star, Award, Rocket } from 'lucide-react';
+import { GaugeCircle, Tag, Gem, Calendar, CarFront, Users, Fuel, GitBranch, ShieldCheck, Paintbrush, Cog } from 'lucide-react';
 
-export const cars = [
+export interface Car {
+  id: string;
+  name: string;
+  brand: string;
+  year: number;
+  price: number;
+  mileage: number;
+  engine: string;
+  type: 'Sedan' | 'SUV' | 'Coupe' | 'Convertible' | 'Sports Car';
+  transmission: 'Automatic' | 'Manual';
+  horsepower: number;
+  seats: number;
+  fuelType: string;
+  images: string[];
+  features: string[];
+  description: string;
+}
+
+export const cars: Car[] = [
     {
-      id: 1,
-      name: 'Ferrari 488 GTB',
-      type: 'Sport',
-      image: 'https://images.unsplash.com/photo-1612763569156-9f3c1533c2a6?q=80&w=2070&auto=format&fit=crop',
-      price: 350000,
-      description: 'The Ferrari 488 GTB is a mid-engine sports car produced by the Italian automobile manufacturer Ferrari. The car is an update to the 458 Italia with notable exterior and performance changes.',
-      features: ['3.9L Twin-Turbo V8', '661 Horsepower', '0-60 in 3.0s', 'Rear-Wheel Drive'],
-      specs: {
-        engine: '3.9L Twin-Turbo V8',
-        horsepower: 661,
-        topSpeed: 205,
-        acceleration: 3.0,
-      }
+        id: 'porsche-911-gt3-rs',
+        name: 'Porsche 911 GT3 RS',
+        brand: 'Porsche',
+        year: 2023,
+        price: 241300,
+        mileage: 1500,
+        engine: '4.0L Flat-6',
+        type: 'Sports Car',
+        transmission: 'Automatic',
+        horsepower: 518,
+        seats: 2,
+        fuelType: 'Gasoline',
+        images: [
+            'https://images.unsplash.com/photo-1616625227429-9343a89b0394?q=80&w=2940&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1616625227367-bd425715a753?q=80&w=2940&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1616625227494-45104b7a70c5?q=80&w=2940&auto=format&fit=crop',
+        ],
+        features: ['Carbon Fiber Roof', 'Weissach Package', 'Porsche Ceramic Composite Brakes', 'Front Axle Lift System'],
+        description: 'The Porsche 911 GT3 RS is a high-performance, track-focused sports car that delivers an exhilarating driving experience. Its naturally aspirated engine and advanced aerodynamics make it a true driver\'s car.'
     },
     {
-      id: 2,
-      name: 'Lamborghini Huracan',
-      type: 'Sport',
-      image: 'https://images.unsplash.com/photo-1601362840469-52e4b6163263?q=80&w=1974&auto=format&fit=crop',
-      price: 280000,
-      description: 'The Lamborghini Huracán is a sports car manufactured by Italian automotive manufacturer Lamborghini replacing the previous V10 offering, the Gallardo.',
-      features: ['5.2L V10 Engine', '631 Horsepower', '0-60 in 2.9s', 'All-Wheel Drive'],
-      specs: {
-        engine: '5.2L Naturally Aspirated V10',
-        horsepower: 631,
-        topSpeed: 202,
-        acceleration: 2.9,
-      }
+        id: 'ferrari-sf90-stradale',
+        name: 'Ferrari SF90 Stradale',
+        brand: 'Ferrari',
+        year: 2024,
+        price: 528700,
+        mileage: 800,
+        engine: '4.0L Twin-Turbo V8 Hybrid',
+        type: 'Sports Car',
+        transmission: 'Automatic',
+        horsepower: 986,
+        seats: 2,
+        fuelType: 'Hybrid',
+        images: [
+            'https://images.unsplash.com/photo-1620921499923-5d79b20b223b?q=80&w=2940&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1617003496228-5e4d2a3f3e1f?q=80&w=2940&auto=format&fit=crop',
+        ],
+        features: ['Assetto Fiorano Package', 'Carbon Fiber Wheels', 'Titanium Exhaust', 'eDrive Mode'],
+        description: 'The SF90 Stradale is Ferrari\'s first-ever PHEV (Plug-in Hybrid Electric Vehicle) supercar, setting a new benchmark for performance, innovation, and driving pleasure.'
     },
     {
-      id: 3,
-      name: 'Porsche 911 GT3',
-      type: 'Sport',
-      image: 'https://images.unsplash.com/photo-1617013735327-99292c5a4d4b?q=80&w=2070&auto=format&fit=crop',
-      price: 220000,
-      description: 'The Porsche 911 GT3 is a high-performance homologation model of the Porsche 911 sports car. It is a line of high-performance models, which began with the 1973 911 Carrera RS.',
-      features: ['4.0L Flat-Six Engine', '502 Horsepower', '0-60 in 3.2s', 'Rear-Wheel Drive'],
-      specs: {
-        engine: '4.0L Naturally Aspirated Flat-6',
-        horsepower: 502,
-        topSpeed: 197,
-        acceleration: 3.2,
-      }
+        id: 'lamborghini-revuelto',
+        name: 'Lamborghini Revuelto',
+        brand: 'Lamborghini',
+        year: 2024,
+        price: 608358,
+        mileage: 500,
+        engine: '6.5L V12 Hybrid',
+        type: 'Sports Car',
+        transmission: 'Automatic',
+        horsepower: 1001,
+        seats: 2,
+        fuelType: 'Hybrid',
+        images: [
+            'https://images.unsplash.com/photo-1681447035667-27962734490c?q=80&w=2832&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1681447035607-3532f0552b82?q=80&w=2832&auto=format&fit=crop',
+        ],
+        features: ['Carbon Fiber Monocoque', 'Active Aerodynamics', 'Three Electric Motors', '13 Drive Modes'],
+        description: 'The Lamborghini Revuelto is the first V12 hybrid plug-in HPEV (High Performance Electrified Vehicle), offering unprecedented performance and a futuristic design.'
     },
     {
-      id: 4,
-      name: 'Rolls-Royce Phantom',
-      type: 'Luxury',
-      image: 'https://images.unsplash.com/photo-1620325851593-27c10334b5c7?q=80&w=2070&auto=format&fit=crop',
-      price: 550000,
-      description: 'The Rolls-Royce Phantom is a full-sized luxury saloon manufactured by Rolls-Royce Motor Cars. It is the eighth and current generation of the Rolls-Royce Phantom, debuting in 2017.',
-      features: ['6.75L Twin-Turbo V12', '563 Horsepower', 'Starlight Headliner', 'Unmatched Luxury'],
-      specs: {
+        id: 'rolls-royce-ghost',
+        name: 'Rolls-Royce Ghost',
+        brand: 'Rolls-Royce',
+        year: 2023,
+        price: 348500,
+        mileage: 2500,
         engine: '6.75L Twin-Turbo V12',
+        type: 'Sedan',
+        transmission: 'Automatic',
         horsepower: 563,
-        topSpeed: 155,
-        acceleration: 5.1,
-      }
+        seats: 5,
+        fuelType: 'Gasoline',
+        images: [
+            'https://images.unsplash.com/photo-1617814243195-25fe8a478b66?q=80&w=2940&auto=format&fit=crop',
+        ],
+        features: ['Starlight Headliner', 'Magic Carpet Ride Suspension', 'Effortless Doors', 'Bespoke Audio System'],
+        description: 'The Rolls-Royce Ghost is the epitome of modern luxury, offering a serene and effortless driving experience combined with exquisite craftsmanship and cutting-edge technology.'
     },
     {
-      id: 5,
-      name: 'Bentley Continental GT',
-      type: 'Luxury',
-      image: 'https://images.unsplash.com/photo-1599422502984-138b5b08c66d?q=80&w=2070&auto=format&fit=crop',
-      price: 300000,
-      description: 'The Bentley Continental GT is a grand tourer manufactured and marketed by British automaker Bentley Motors since 2003. It was the first car released by Bentley under Volkswagen AG management.',
-      features: ['6.0L Twin-Turbo W12', '626 Horsepower', 'Handcrafted Interior', 'Effortless Performance'],
-      specs: {
-        engine: '6.0L Twin-Turbo W12',
-        horsepower: 626,
-        topSpeed: 207,
-        acceleration: 3.6,
-      }
+        id: 'mercedes-amg-g63',
+        name: 'Mercedes-AMG G 63',
+        brand: 'Mercedes-Benz',
+        year: 2023,
+        price: 183000,
+        mileage: 5000,
+        engine: '4.0L Twin-Turbo V8',
+        type: 'SUV',
+        transmission: 'Automatic',
+        horsepower: 577,
+        seats: 5,
+        fuelType: 'Gasoline',
+        images: [
+            'https://images.unsplash.com/photo-1627042599222-3a7859844a4c?q=80&w=2940&auto=format&fit=crop',
+        ],
+        features: ['Iconic Boxy Design', 'Side-Exit Exhaust System', 'Three Locking Differentials', 'Luxury Interior'],
+        description: 'The Mercedes-AMG G 63 combines immense off-road capability with breathtaking performance and a lavishly appointed interior, making it a true icon of automotive design.'
     },
     {
-      id: 6,
-      name: 'Mercedes-Maybach S-Class',
-      type: 'Luxury',
-      image: 'https://images.unsplash.com/photo-1634424395270-1793344682a2?q=80&w=2070&auto=format&fit=crop',
-      price: 250000,
-      description: 'The Mercedes-Maybach S-Class is the pinnacle of automotive luxury. It combines the perfection of the Mercedes-Benz S-Class with the exclusivity of Maybach.',
-      features: ['4.0L Twin-Turbo V8', '496 Horsepower', 'Executive Rear Seating', 'Advanced Technology'],
-      specs: {
-        engine: '4.0L Twin-Turbo V8 with EQ Boost',
-        horsepower: 496,
-        topSpeed: 155,
-        acceleration: 4.7,
-      }
+        id: 'mclaren-720s',
+        name: 'McLaren 720S',
+        brand: 'McLaren',
+        year: 2022,
+        price: 305000,
+        mileage: 3200,
+        engine: '4.0L Twin-Turbo V8',
+        type: 'Coupe',
+        transmission: 'Automatic',
+        horsepower: 710,
+        seats: 2,
+        fuelType: 'Gasoline',
+        images: [
+            'https://images.unsplash.com/photo-1590369153526-20c32d20365b?q=80&w=2940&auto=format&fit=crop',
+        ],
+        features: ['Carbon Fiber Monocage II', 'Proactive Chassis Control II', 'Variable Drift Control', 'Dihedral Doors'],
+        description: 'The McLaren 720S is a masterpiece of aerodynamic design and engineering, offering blistering performance and an incredibly connected driving experience.'
     },
+];
+
+export const carFeatures = [
+    { icon: GaugeCircle, label: 'Mileage', key: 'mileage' },
+    { icon: Calendar, label: 'Year', key: 'year' },
+    { icon: CarFront, label: 'Type', key: 'type' },
+    { icon: Users, label: 'Seats', key: 'seats' },
+    { icon: Fuel, label: 'Fuel', key: 'fuelType' },
+    { icon: GitBranch, label: 'Transmission', key: 'transmission' },
 ];
 
 export const services = [
   {
-    id: 1,
-    title: "Premium Detailing",
-    description: "Our meticulous detailing service restores your vehicle to showroom condition, inside and out. We use only the finest products to protect your investment.",
-    icon: Sparkles,
-    image: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  },
-  {
-    id: 2,
-    title: "Performance Tuning",
-    description: "Unlock your car's true potential with our expert performance tuning. We specialize in ECU remapping and hardware upgrades for maximum power and efficiency.",
-    icon: Rocket,
-    image: "https://images.unsplash.com/photo-1553523824-16c597424269?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  },
-  {
-    id: 3,
-    title: "Paint Protection Film (PPF)",
-    description: "Protect your vehicle's pristine paintwork from rock chips, scratches, and environmental contaminants with our self-healing, high-gloss paint protection film.",
     icon: ShieldCheck,
-    image: "https://images.unsplash.com/photo-1628129235252-96559545dd4c?q=80&w=1925&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    title: "Certified Pre-Owned",
+    description: "Every vehicle undergoes a rigorous 150-point inspection to ensure quality and reliability.",
   },
   {
-    id: 4,
+    icon: Paintbrush,
+    title: "Customization",
+    description: "From custom paint jobs to performance tuning, we'll help you create your dream car.",
+  },
+  {
+    icon: Gem,
+    title: "Financing & Leasing",
+    description: "We offer competitive financing and leasing options to fit your budget.",
+  },
+  {
+    icon: Cog,
     title: "Expert Maintenance",
-    description: "Trust our certified technicians with all your routine maintenance and complex repair needs. We use genuine parts to ensure peak performance and longevity.",
-    icon: Wrench,
-    image: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    description: "Our certified technicians provide top-tier service to keep your vehicle in peak condition.",
   },
-  {
-    id: 5,
-    title: "Ceramic Coating",
-    description: "Give your car an incredible, long-lasting shine and hydrophobic properties with our professional-grade ceramic coatings. Easier cleaning and superior protection.",
-    icon: Award,
-    image: "https://images.unsplash.com/photo-1607966883103-29a35e4a5523?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  },
-  {
-    id: 6,
-    title: "VIP Concierge",
-    description: "Experience the ultimate convenience with our VIP concierge service. We handle vehicle pickup, delivery, and all your automotive needs with discretion and care.",
-    icon: Star,
-    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  }
 ];
